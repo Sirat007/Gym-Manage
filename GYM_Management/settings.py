@@ -79,7 +79,7 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
 }
 
-WSGI_APPLICATION = 'GYM_Management.wsgi.application'
+WSGI_APPLICATION = 'GYM_Management.wsgi.app'
 
 
 # Database
