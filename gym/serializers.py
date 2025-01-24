@@ -10,6 +10,9 @@ class BookingSerializer(serializers.ModelSerializer):
     class Meta:
         model=Booking
         fields='__all__'
+        extra_kwargs = {
+            'member': {'read_only': True}
+        }
 
    
 
