@@ -16,4 +16,4 @@ urlpatterns = [
 
 router.register(r'booking',BookingView, basename='booking')
 
-urlpatterns = router.urls
+urlpatterns += router.urls
