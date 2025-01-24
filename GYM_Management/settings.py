@@ -84,7 +84,7 @@ REST_FRAMEWORK = {
 WSGI_APPLICATION = 'GYM_Management.wsgi.app'
 
 
-CORS_ORIGIN_WHITELIST = (
+CORS_ALLOWED_ORIGINS  = (
     "*",
     "*",
 )
