@@ -26,7 +26,7 @@ class FitnessClassUpdate(generics.RetrieveUpdateDestroyAPIView):
     serializer_class=FitnessClassSerializer
     permission_classes=[IsStaff]
 
-class BookingView(generics.CreateAPIView):
+class BookingView(viewsets.ModelViewSet):
     queryset = Booking.objects.all()
     serializer_class = BookingSerializer
     permission_classes=[IsMember]
