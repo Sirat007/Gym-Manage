@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
 from . import serializers
+from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework import generics,permissions
 from .models import CustomUser,MemberProfile,GymPlan
@@ -11,6 +12,7 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes
 from django.contrib.auth import authenticate, login, logout
 from rest_framework.authtoken.models import Token
+from rest_framework.permissions import IsAuthenticated
 # for sending email
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
