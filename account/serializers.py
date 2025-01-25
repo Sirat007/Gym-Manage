@@ -63,11 +63,11 @@ class MemberSerializer(serializers.ModelSerializer):
 class MemberPlan(serializers.ModelSerializer):
     class Meta:
         model=GymPlan
-        fields=['name','price','description']
+        fields='__all__'
 
 class ProfileSerializer(serializers.ModelSerializer):
-    user=MemberSerializer()
-    plan=MemberPlan()
+    user=MemberSerializer(read_only='True')
+    plan=MemberPlan(read_only='True')
     class Meta:
         model=MemberProfile
         fields='__all__'
