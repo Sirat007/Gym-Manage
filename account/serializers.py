@@ -56,7 +56,7 @@ class PlanSerializer(serializers.ModelSerializer):
           
 
 class ProfileSerializer(serializers.ModelSerializer):
-   
+    
     class Meta:
         model=MemberProfile
-        fields=['user','plan',]
+        fields='__all__'
