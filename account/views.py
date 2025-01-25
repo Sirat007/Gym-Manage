@@ -98,6 +98,11 @@ class MemberProfleView(viewsets.ModelViewSet):
     queryset =MemberProfile.objects.all()
     serializer_class =ProfileSerializer
     permission_classes=[IsAuthenticated]
+
+    def get_queryset(self):
+        qs=super().get_queryset()
+
+        return qs.filter(user=self.request.user)
     
 
 class PlanList(generics.ListAPIView):
