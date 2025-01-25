@@ -55,8 +55,19 @@ class PlanSerializer(serializers.ModelSerializer):
 
           
 
+class MemberSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=CustomUser
+        fields=['first_name', 'last_name', 'email','user_type']
+          
+class MemberPlan(serializers.ModelSerializer):
+    class Meta:
+        model=GymPlan
+        fields=['name','price','description']
+
 class ProfileSerializer(serializers.ModelSerializer):
-    
+    user=MemberSerializer()
+    plan=MemberPlan()
     class Meta:
         model=MemberProfile
         fields='__all__'
