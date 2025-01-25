@@ -79,33 +79,24 @@ class UserLogutView(APIView):
         logout(request)
         return redirect('login')   
 
+class MemberListView(generics.ListAPIView):
+    queryset = CustomUser.objects.filter(user_type='member')
+    serializer_class = UserSerializer
+    permission_classes=[IsStaff]
+
+
+
+class MemberDeleteView(generics.RetrieveDestroyAPIView):
+    queryset = CustomUser.objects.filter(user_type='member')
+    serializer_class = UserSerializer
+    permission_classes=[IsStaff]
+
+
 class MemberProfleView(viewsets.ModelViewSet):
     queryset =MemberProfile.objects.all()
     serializer_class =ProfileSerializer
     permission_classes=[IsAuthenticated]
     
-
-
-
-
-
-class MemberProfleView(generics.ListCreateAPIView):
-    #queryset =MemberProfile.objects.all()
-    serializer_class =ProfileSerializer
-    permission_classes=[IsOwner]
-
-    def get_queryset(self):
-        user=self.request.user
-        return MemberProfile.objects.filter(user=user)
-
-class ProfileDetailView(generics.RetrieveUpdateAPIView):
-      queryset =MemberProfile.objects.all()
-      serializer_class =ProfileSerializer
-      permission_classes=[IsOwner]
-      
-      def get_queryset(self):
-        user=self.request.user
-        return MemberProfile.objects.filter(user=user)
 
 class PlanList(generics.ListAPIView):
     queryset=GymPlan.objects.all()
@@ -120,3 +111,9 @@ class PlanDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset=GymPlan.objects.all()
     serializer_class=PlanSerializer
     permission_classes=[IsStaff]
+    
+
+
+
+
+
