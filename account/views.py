@@ -79,17 +79,14 @@ class UserLogutView(APIView):
         logout(request)
         return redirect('login')   
 
-class MemberListView(generics.ListAPIView):
-    queryset = CustomUser.objects.filter(user_type='member')
-    serializer_class = UserSerializer
-    permission_classes=[IsStaff]
+class MemberProfleView(viewsets.ModelViewSet):
+    queryset =MemberProfile.objects.all()
+    serializer_class =ProfileSerializer
+    permission_classes=[IsAuthenticated]
+    
 
 
 
-class MemberDeleteView(generics.RetrieveDestroyAPIView):
-    queryset = CustomUser.objects.filter(user_type='member')
-    serializer_class = UserSerializer
-    permission_classes=[IsStaff]
 
 
 class MemberProfleView(generics.ListCreateAPIView):
