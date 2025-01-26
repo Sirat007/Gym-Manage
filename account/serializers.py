@@ -80,7 +80,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         
-        # Update fields in the MemberProfile instance
+       
         instance.plan = validated_data.get('plan', instance.plan)
         instance.save()
         return instance
