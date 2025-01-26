@@ -58,7 +58,7 @@ class PlanSerializer(serializers.ModelSerializer):
 class MemberSerializer(serializers.ModelSerializer):
     class Meta:
         model=CustomUser
-        fields=['first_name', 'last_name', 'email']
+        fields=['first_name', 'last_name', 'email','user_type']
           
 class MemberPlan(serializers.ModelSerializer):
     class Meta:
