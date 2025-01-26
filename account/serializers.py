@@ -66,8 +66,22 @@ class MemberPlan(serializers.ModelSerializer):
         fields='__all__'
 
 class ProfileSerializer(serializers.ModelSerializer):
-    user=MemberSerializer(read_only='True')
-    plan=MemberPlan(read_only='True')
+    user = MemberSerializer(read_only=True)
+   
+    plan = serializers.PrimaryKeyRelatedField(queryset=GymPlan.objects.all())  
+
     class Meta:
-        model=MemberProfile
-        fields='__all__'
+        model = MemberProfile
+        fields = '__all__'
+
+    def create(self, validated_data):
+        
+        return MemberProfile.objects.create(**validated_data)
+
+    def update(self, instance, validated_data):
+        
+        # Update fields in the MemberProfile instance
+        instance.plan = validated_data.get('plan', instance.plan)
+        instance.save()
+        return instance
+
