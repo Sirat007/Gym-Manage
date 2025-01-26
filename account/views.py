@@ -12,7 +12,7 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes
 from django.contrib.auth import authenticate, login, logout
 from rest_framework.authtoken.models import Token
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated,AllowAny
 # for sending email
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
@@ -20,7 +20,7 @@ from django.shortcuts import redirect
 
 class UserRegistrationApiView(APIView):
     serializer_class = serializers.UserSerializer
-    
+    permission_classes=[AllowAny]
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
         
@@ -57,6 +57,7 @@ def activate(request, uid64, token):
         return redirect('register')
     
 class UserLoginApiView(APIView):
+    permission_classes=[AllowAny]
     def post(self, request):
         serializer = serializers.UserLoginSerializer(data = self.request.data)
         if serializer.is_valid():
