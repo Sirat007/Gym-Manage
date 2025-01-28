@@ -98,7 +98,7 @@ class MemberDeleteView(generics.RetrieveDestroyAPIView):
 class MemberProfleView(viewsets.ModelViewSet):
     queryset =MemberProfile.objects.all()
     serializer_class =ProfileSerializer
-    permission_classes=[IsAuthenticated]
+    permission_classes=[AllowAny]
 
     def get_queryset(self):
         qs=super().get_queryset()
