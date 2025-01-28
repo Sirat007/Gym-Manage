@@ -133,6 +133,10 @@ class PlanDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class=PlanSerializer
     permission_classes=[IsStaff]
 
+class UserDetail(generics.ListAPIView):
+    queryset=CustomUser.objects.all()
+    serializer_class=MemberSerializer
+
 
 
     
