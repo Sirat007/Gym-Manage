@@ -52,8 +52,10 @@ class PlanSerializer(serializers.ModelSerializer):
         fields='__all__'
 
     
-
-          
+class MemDelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=CustomUser
+        exclude=['password']        
 
 class MemberSerializer(serializers.ModelSerializer):
     class Meta:
