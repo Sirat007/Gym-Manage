@@ -132,6 +132,11 @@ class PlanDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset=GymPlan.objects.all()
     serializer_class=PlanSerializer
     permission_classes=[IsStaff]
+
+
+class UserDetail(viewsets.ModelViewSet):
+    queryset=CustomUser.objects.all()
+    serializer_class=MemberSerializer
     
 
 
