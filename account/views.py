@@ -84,7 +84,7 @@ class UserLogutView(APIView):
 
 class MemberListView(generics.ListAPIView):
     queryset = CustomUser.objects.filter(user_type='member')
-    serializer_class = UserSerializer
+    serializer_class = MemDelSerializer
     permission_classes=[IsStaff]
 
 
