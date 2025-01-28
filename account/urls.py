@@ -1,5 +1,5 @@
 from django.urls import path,include
-from .views import UserRegistrationApiView,UserLoginApiView,UserLogutView,MemberListView,MemberProfleView,MemberDeleteView,activate,PlanCreate,PlanList,PlanDetail,UserDetail
+from .views import UserRegistrationApiView,UserLoginApiView,UserLogutView,MemberListView,MemberProfleView,MemberDeleteView,activate,PlanCreate,PlanList,PlanDetail
 from . import views
 from rest_framework.routers import DefaultRouter
 
@@ -19,7 +19,7 @@ urlpatterns = [
     path('planlist/',PlanList.as_view(),name='plan'),
     path('plancreate/',PlanCreate.as_view(),name='plancreate'),
     path('planedit/<int:pk>',PlanDetail.as_view(),name='planedit'),
-    path('detail',UserDetail.as_view(),name='detail'),
+   
     path('',include(router.urls)),
 ]
 
