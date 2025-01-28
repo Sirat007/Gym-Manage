@@ -6,7 +6,7 @@ from rest_framework.routers import DefaultRouter
 router=DefaultRouter()
 
 router.register(r'profile',MemberProfleView, basename='profile')
-router.register(r'detail',UserDetail,basename='detail')
+#router.register(r'detail',UserDetail,basename='detail')
 urlpatterns = [
     path('register/',UserRegistrationApiView.as_view(), name='register'),
     path('login/',UserLoginApiView.as_view(), name='login'),
