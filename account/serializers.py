@@ -60,7 +60,7 @@ class MemDelSerializer(serializers.ModelSerializer):
 class MemberSerializer(serializers.ModelSerializer):
     class Meta:
         model=CustomUser
-        fields='__all__'
+        fields=['id','first_name', 'last_name', 'email','user_type']
           
 class MemberPlan(serializers.ModelSerializer):
     class Meta:
