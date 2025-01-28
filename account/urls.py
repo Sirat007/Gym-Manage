@@ -1,5 +1,5 @@
 from django.urls import path,include
-from .views import UserRegistrationApiView,UserLoginApiView,UserLogutView,MemberListView,MemberProfleView,MemberDeleteView,activate,PlanCreate,PlanList,PlanDetail,UserDetail
+from .views import UserRegistrationApiView,UserLoginApiView,UserLogutView,MemberListView,MemberProfleView,MemberDeleteView,activate,PlanCreate,PlanList,PlanDetail
 from . import views
 from rest_framework.routers import DefaultRouter
 
