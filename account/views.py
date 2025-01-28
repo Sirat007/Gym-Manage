@@ -134,9 +134,7 @@ class PlanDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes=[IsStaff]
 
 
-class UserDetail(viewsets.ModelViewSet):
-    queryset=CustomUser.objects.all()
-    serializer_class=MemberSerializer
+
     
 
 
