@@ -43,10 +43,15 @@ class UserSerializer(serializers.ModelSerializer):
             user_type=validated_data['user_type']
         )
         return user
+userchoice=(
+        ('member','Member'),
+        ('staff','Staff'),
+    )
 
 class UserLoginSerializer(serializers.Serializer):
     username = serializers.CharField(required = True)
     password = serializers.CharField(required = True)
+    user_type=serializers.ChoiceField(choices=userchoice)
 
 class PlanSerializer(serializers.ModelSerializer):
     class Meta:
