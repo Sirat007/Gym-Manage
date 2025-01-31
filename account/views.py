@@ -63,8 +63,9 @@ class UserLoginApiView(APIView):
         if serializer.is_valid():
             username = serializer.validated_data['username']
             password = serializer.validated_data['password']
+            user_type=serializer.validated_data['user_type']
 
-            user = authenticate(username= username, password=password)
+            user = authenticate(username= username, password=password,user_type=user_type)
             
             if user:
                 token, _ = Token.objects.get_or_create(user=user)
