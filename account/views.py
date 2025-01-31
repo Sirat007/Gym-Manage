@@ -72,7 +72,7 @@ class UserLoginApiView(APIView):
                 print(token)
                 print(_)
                 login(request, user)
-                return Response({'token' : token.key, 'user_id' : user.id})
+                return Response({'token' : token.key, 'user_id' : user.id, 'user_type':user.user_type})
             else:
                 return Response({'error' : "Invalid Credential"})
         return Response(serializer.errors)
