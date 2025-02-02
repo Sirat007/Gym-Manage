@@ -4,7 +4,7 @@ from . import serializers
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework import generics,permissions
-from .models import CustomUser,MemberProfile,GymPlan
+from .models import CustomUser,MemberProfile,GymPlan,PlanAdd
 from .serializers import UserSerializer,PlanSerializer,ProfileSerializer,UserLoginSerializer,MemDelSerializer,PlanAddSerializer
 from .permissions import IsStaff,IsAuthororReadonly,IsMember,IsOwner
 from django.contrib.auth.tokens import default_token_generator
