@@ -75,10 +75,7 @@ class MemberPlan(serializers.ModelSerializer):
         fields='__all__'
 
 class ProfileSerializer(serializers.ModelSerializer):
-    user = MemberSerializer()
    
-    plan = serializers.PrimaryKeyRelatedField(queryset=GymPlan.objects.all())  
-
     class Meta:
         model = MemberProfile
         fields = '__all__'
@@ -94,3 +91,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         instance.save()
         return instance
 
+class PlanAddSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=PlanAdd
+        fields='__all__'
