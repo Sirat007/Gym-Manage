@@ -135,7 +135,13 @@ class PlanDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes=[IsStaff]
 
 
+class PlanAddView(viewsets.ModelViewSet):
+    queryset =PlanAdd.objects.all()
+    serializer_class = PlanAddSerializer
+    #permission_classes=[IsMember]
 
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
 
     
