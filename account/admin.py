@@ -4,3 +4,4 @@ from . models import CustomUser,MemberProfile,GymPlan
 admin.site.register(CustomUser)
 admin.site.register(MemberProfile)
 admin.site.register(GymPlan)
+admin.site.register(PlanAdd)
