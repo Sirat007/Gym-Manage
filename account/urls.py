@@ -1,12 +1,13 @@
 from django.urls import path,include
-from .views import UserRegistrationApiView,UserLoginApiView,UserLogutView,MemberListView,MemberProfleView,MemberDeleteView,activate,PlanCreate,PlanList,PlanDetail
+from .views import UserRegistrationApiView,UserLoginApiView,UserLogutView,MemberListView,MemberProfleView,MemberDeleteView,activate,PlanCreate,PlanList,PlanDetail,PlanAddView
 from . import views
 from rest_framework.routers import DefaultRouter
 
 router=DefaultRouter()
 
 router.register(r'profile',MemberProfleView, basename='profile')
-#router.register(r'detail',UserDetail,basename='detail')
+router.register(r'planadd',PlanAddView)
+
 urlpatterns = [
     path('register/',UserRegistrationApiView.as_view(), name='register'),
     path('login/',UserLoginApiView.as_view(), name='login'),
