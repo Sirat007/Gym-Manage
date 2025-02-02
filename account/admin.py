@@ -1,5 +1,5 @@
 from django.contrib import admin
-from . models import CustomUser,MemberProfile,GymPlan
+from . models import CustomUser,MemberProfile,GymPlan,PlanAdd
 # Register your models here.
 admin.site.register(CustomUser)
 admin.site.register(MemberProfile)
