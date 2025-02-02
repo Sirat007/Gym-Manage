@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import CustomUser,MemberProfile,GymPlan
+from .models import CustomUser,MemberProfile,GymPlan,PlanAdd
 from gym.models import Booking
 class UserSerializer(serializers.ModelSerializer):
     confirm_password = serializers.CharField(write_only = True)
