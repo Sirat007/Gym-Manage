@@ -75,7 +75,7 @@ class MemberPlan(serializers.ModelSerializer):
         fields='__all__'
 
 class ProfileSerializer(serializers.ModelSerializer):
-   
+    user=MemberSerializer(read_only=True)
     class Meta:
         model = MemberProfile
         fields = '__all__'
