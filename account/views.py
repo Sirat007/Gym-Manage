@@ -1,11 +1,11 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
-from . import serializers
 from rest_framework import viewsets
+from . import serializers
 from rest_framework.response import Response
 from rest_framework import generics,permissions
 from .models import CustomUser,MemberProfile,GymPlan,PlanAdd
-from .serializers import UserSerializer,PlanSerializer,ProfileSerializer,UserLoginSerializer,MemDelSerializer,PlanAddSerializer
+from .serializers import UserSerializer,PlanSerializer,ProfileSerializer,UserLoginSerializer,MemberSerializer,MemDelSerializer,PlanAddSerializer
 from .permissions import IsStaff,IsAuthororReadonly,IsMember,IsOwner
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
@@ -13,14 +13,16 @@ from django.utils.encoding import force_bytes
 from django.contrib.auth import authenticate, login, logout
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAuthenticated,AllowAny
-# for sending email
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.shortcuts import redirect
+from rest_framework.response import Response
+
 
 class UserRegistrationApiView(APIView):
     serializer_class = serializers.UserSerializer
     permission_classes=[AllowAny]
+    
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
         
@@ -85,7 +87,7 @@ class UserLogutView(APIView):
 
 class MemberListView(generics.ListAPIView):
     queryset = CustomUser.objects.filter(user_type='member')
-    serializer_class = MemDelSerializer
+    serializer_class = UserSerializer
     permission_classes=[IsStaff]
 
 
@@ -101,10 +103,14 @@ class MemberProfleView(viewsets.ModelViewSet):
     serializer_class =ProfileSerializer
     permission_classes=[AllowAny]
 
+    
+
     def get_queryset(self):
         qs=super().get_queryset()
 
         return qs.filter(user=self.request.user)
+    
+    
 
     def update(self, request, *args, **kwargs):
         partial = kwargs.pop('partial', False)
@@ -118,8 +124,8 @@ class MemberProfleView(viewsets.ModelViewSet):
         serializer.is_valid(raise_exception=True)
         self.perform_update(serializer)
         return Response(serializer.data)
+        
     
-
 class PlanList(generics.ListAPIView):
     queryset=GymPlan.objects.all()
     serializer_class=PlanSerializer
@@ -134,20 +140,14 @@ class PlanDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class=PlanSerializer
     permission_classes=[IsStaff]
 
-
 class PlanAddView(viewsets.ModelViewSet):
     queryset =PlanAdd.objects.all()
     serializer_class = PlanAddSerializer
     #permission_classes=[IsMember]
 
     def perform_create(self, serializer):
+        
+        
         serializer.save(user=self.request.user)
 
-   
-
     
-
-
-
-
-
