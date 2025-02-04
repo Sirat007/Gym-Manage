@@ -143,11 +143,7 @@ class PlanAddView(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
-    def get_queryset(self):
-        qs=super().get_queryset()
-
-        return qs.filter(user=self.request.user)
-
+   
 
     
 
