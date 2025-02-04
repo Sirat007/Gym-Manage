@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import CustomUser,MemberProfile,GymPlan,PlanAdd
-from gym.models import Booking
+#from gym.models import Booking
 class UserSerializer(serializers.ModelSerializer):
     confirm_password = serializers.CharField(write_only = True)
     class Meta:
@@ -43,15 +43,20 @@ class UserSerializer(serializers.ModelSerializer):
             user_type=validated_data['user_type']
         )
         return user
+
 userchoice=(
         ('member','Member'),
         ('staff','Staff'),
     )
-
 class UserLoginSerializer(serializers.Serializer):
     username = serializers.CharField(required = True)
     password = serializers.CharField(required = True)
-    user_type=serializers.ChoiceField(choices=userchoice)
+    user_type=serializers.ChoiceField(choices=userchoice,required=False)
+
+class MemDelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=CustomUser
+        exclude=['password']
 
 class PlanSerializer(serializers.ModelSerializer):
     class Meta:
@@ -59,11 +64,6 @@ class PlanSerializer(serializers.ModelSerializer):
         fields='__all__'
 
     
-class MemDelSerializer(serializers.ModelSerializer):
-    class Meta:
-        model=CustomUser
-        exclude=['password']        
-
 class MemberSerializer(serializers.ModelSerializer):
     class Meta:
         model=CustomUser
@@ -72,26 +72,37 @@ class MemberSerializer(serializers.ModelSerializer):
 class MemberPlan(serializers.ModelSerializer):
     class Meta:
         model=GymPlan
-        fields='__all__'
+        fields=['id','name']
+
 
 class ProfileSerializer(serializers.ModelSerializer):
-    user=MemberSerializer(read_only=True)
+    user = MemberSerializer(read_only=True)
+    plan = serializers.PrimaryKeyRelatedField(queryset=GymPlan.objects.all(), allow_null=True) # Use PrimaryKeyRelatedField
+
     class Meta:
         model = MemberProfile
-        fields = '__all__'
+        fields = '__all__' # Or specify fields explicitly
 
     def create(self, validated_data):
-        
-        return MemberProfile.objects.create(**validated_data)
+        plan = validated_data.pop('plan', None) # Get plan, allow None
+        profile = MemberProfile.objects.create(plan=plan, **validated_data)
+        return profile
 
     def update(self, instance, validated_data):
-        
-       
-        instance.plan = validated_data.get('plan', instance.plan)
+
+        plan = validated_data.pop('plan', None)
+
+        if plan is not None:
+            instance.plan = plan
+        elif 'plan' in validated_data and validated_data['plan'] is None: # Handle explicit null update
+            instance.plan = None
+
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
         instance.save()
         return instance
-
 class PlanAddSerializer(serializers.ModelSerializer):
     class Meta:
         model=PlanAdd
         fields='__all__'
+        
